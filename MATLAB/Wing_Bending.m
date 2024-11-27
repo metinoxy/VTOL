@@ -4,12 +4,15 @@ wing_y = [-0.815	-0.805	-0.7975	-0.7925	-0.7875	-0.7825	-0.7775	-0.7725	-0.7675	
 M_b_hrz =    [    0 	0.0004	0.0013	0.002	0.003	0.0041	0.0055	0.0071	0.0088	0.0106	0.012	0.0128	0.0137	0.0146	0.0258	0.1201	0.3031	0.5857	0.976	1.48	2.1015	2.8414	3.6968	4.2199	4.3059	4.3927	4.4801	4.5682	4.6569	4.7462	4.836	4.9263	5.0169	5.0169  5.0169	4.9263	4.836	4.7462	4.6569	4.5682	4.4801	4.3927	4.3059	4.2199	3.6968	2.8415	2.1015	1.48	0.976	0.5857	0.3031	0.1201	0.0258	0.0146	0.0137	0.0128	0.012	0.0106	0.0088	0.0071	0.0055	0.0041	0.003	0.002	0.0013	0.0004	0];
 chord =  [ 0.08	    0.09	0.0975	0.1025	0.1075	0.1125	0.1175	0.1225	0.1275	0.1325	0.1362	0.1387	0.1412	0.1437	0.1492	0.1575	0.1658	0.1742	0.1825	0.1908	0.1992	0.2075	0.2158	0.2215	0.2245	0.2275	0.2305	0.2335	0.2365	0.2395	0.2425	0.2455	0.2485	0.2485  0.2485	0.2455	0.2425	0.2395	0.2365	0.2335	0.2305	0.2275	0.2245	0.2215	0.2158	0.2075	0.1992	0.1908	0.1825	0.1742	0.1658	0.1575	0.1492	0.1437	0.1412	0.1387	0.1362	0.1325	0.1275	0.1225	0.1175	0.1125	0.1075	0.1025	0.0975	0.09	0.08];
 
+
 ro_tube = 2100; % Density of the tube [kg/m^3]
-d_o = 0.016; % Outer diameter of the tube [m]
-d_i = 0.012; % Inner diameter of the tube [m]
-A_tube = pi * (d_o^2 - d_i^2) / 4; % Tube Area [m^2]
+d_o = 0.012; % Outer diameter of the tube [m]
+d_i = 0.010; % Inner diameter of the tube [m]
+A_tube = pi * (d_o^2 - d_i^2); % Tube Area [m^2]
 I_tube = pi * (d_o^4 - d_i^4) / 64; % Tube moment of inertia [m^4]
 E_tube = 39e9; % Elastic modulus of GFRP [Pa]
+S_u = 645e6; % Tensile Strength [Pa]
+
 
 ro_shell = 1264; % Desity of the shell [kg/m^2]
 A_shell = (415.479892e-6/0.25) * chord; % Shell Area [m^2]
@@ -21,8 +24,10 @@ I_shell_trasformed = I_shell + A_shell*d_st^2; % Transformed I of shell
 
 EI = zeros(0,length(wing_y));
 for i = 1 : length(wing_y)
-    if abs(wing_y(i)) < 0.5
+    if abs(wing_y(i)) < 0.0
         EI(i) = E_tube*I_tube + E_shell*I_shell_trasformed(i);
+    elseif 1
+        EI(i) = E_tube*I_tube;
     else
         EI(i) = E_shell .* I_shell(i);
     end
@@ -56,6 +61,10 @@ grid on;
 xlabel('Spanwise Position [m]');
 ylabel('Deflection [mm]');
 title('Deflection Distribution');
+
+Sigma_max = (max(M_b_hrz)*d_o) / (I_tube);
+Weight = ro_tube*A_tube
+SF = S_u / Sigma_max
 
 
 
