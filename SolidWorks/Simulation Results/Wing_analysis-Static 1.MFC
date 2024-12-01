@@ -1,0 +1,16 @@
+[StartTime]
+Wing_analysis-Static 1.MFC=1m:40s
+[SolverState]
+Wing_analysis-Static 1.MFC=1
+[MainFrame]
+Wing_analysis-Static 1.MFC=MCAAAAAAAAAAAAAABAAAAAAAPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPCFCAAAAAKJAAAAAAKLDAAAAAGMCAAAAA
+[ShowMin]
+Wing_analysis-Static 1.MFC=No
+[SolverType]
+Wing_analysis-Static 1.MFC=Doðrusal Analiz
+[StudyType]
+Wing_analysis-Static 1.MFC=0
+[StudyName]
+Wing_analysis-Static 1.MFC=Static 1
+[Solver]
+Wing_analysis-Static 1.MFC=Iterative
