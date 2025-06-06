@@ -1,2 +1,0 @@
-Number of Contacts: 15
-Number of contact data: 2826
